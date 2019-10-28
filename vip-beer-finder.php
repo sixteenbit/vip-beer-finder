@@ -191,8 +191,8 @@ remove_filter( 'the_excerpt', 'shortcode_unautop' );
 add_filter( 'the_excerpt', 'vip_beer_finder_shortcode_unautop' );
 
 require 'plugin-update-checker/plugin-update-checker.php';
-$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
-	'https://github.com/user-name/repo-name/',
+$VBFUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/sixteenbit/vip-beer-finder/',
 	__FILE__,
-	'unique-plugin-or-theme-slug'
+	'vip-beer-finder'
 );
