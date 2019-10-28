@@ -3,7 +3,7 @@
  * Plugin Name: VIP Beer Finder
  * Plugin URI:  https://github.com/sixteenbit/vip-beer-finder
  * Description: Integrate your VIP beer finder with a WordPress shortcode.
- * Version:     0.1.0
+ * Version:     1.0.0
  * Author: Sixteenbit
  * Author URI: https://sixteenbit.com
  * License:     GPLv2+
@@ -189,3 +189,16 @@ add_filter( 'the_content', 'vip_beer_finder_shortcode_unautop' );
 
 remove_filter( 'the_excerpt', 'shortcode_unautop' );
 add_filter( 'the_excerpt', 'vip_beer_finder_shortcode_unautop' );
+
+require 'plugin-update-checker/plugin-update-checker.php';
+$myUpdateChecker = Puc_v4_Factory::buildUpdateChecker(
+	'https://github.com/user-name/repo-name/',
+	__FILE__,
+	'unique-plugin-or-theme-slug'
+);
+
+//Optional: If you're using a private repository, specify the access token like this:
+$myUpdateChecker->setAuthentication('your-token-here');
+
+// Optional: Set the branch that contains the stable release.
+$myUpdateChecker->setBranch('stable-branch-name');
