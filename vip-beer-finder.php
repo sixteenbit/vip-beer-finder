@@ -3,7 +3,7 @@
  * Plugin Name: VIP Beer Finder
  * Plugin URI:  https://github.com/sixteenbit/vip-beer-finder
  * Description: Integrate your VIP beer finder with a WordPress shortcode.
- * Version:     1.0.3
+ * Version:     1.0.4
  * Author: Sixteenbit
  * Author URI: https://sixteenbit.com
  * License:     GPLv2+
@@ -12,7 +12,7 @@
  */
 
 // Useful global constants
-define( 'VIP_Beer_Finder_Version', '1.0.2' );
+define( 'VIP_Beer_Finder_Version', '1.0.4' );
 define( 'VIP_Beer_Finder_URL', plugin_dir_url( __FILE__ ) );
 
 /**
@@ -38,31 +38,21 @@ function vip_beer_finder_iframeResizer_init() { ?>
  * @return string
  */
 function vip_beer_finder( $atts ) {
-	$specs = shortcode_atts(
+	$allow_geo = '';
+	$specs     = shortcode_atts(
 		array(
 			'height'    => '560',
 			'width'     => '100%',
 			'id'        => 'VIP',
-			// Required: your VIP company code; 3 or 5 characters
 			'territory' => false,
-			// Territory code to pre-filter brands
 			'zip'       => false,
-			// Zip code to pre-fill (when search by address not enabled)
 			'address'   => false,
-			// Address to pre-fill (when search by address enabled)
 			'miles'     => false,
-			// Miles to default to
 			'brand'     => false,
-			// Brand description to pre-fill the brand combo
 			//          'category'  => '',          // Category 1-12 code to pre-filter data. One value per category is OK.
 			'theme'     => 'bs-paper',
-			// Base theme override; see Theme section for details
 			'pagesize'  => false,
-			// 50; max of 150
 			'geolocate' => false,
-			// Set to Y to trigger browser geolocation prompt.
-			// If allowed, will automatically search around the users location. Requires HTTPS in modern browsers.
-			// iFrame attribute required: ​allow="geolocation;"
 
 		),
 		$atts
@@ -103,7 +93,7 @@ function vip_beer_finder( $atts ) {
 
 	if ( $specs['geolocate'] == true ) {
 		$param['geolocate'] = 'Y';
-		$allow_geo          = ' allow="geolocation;"';
+		$allow_geo          = ' allow=geolocation';
 	}
 
 	wp_enqueue_script( 'vip-beer-finder-iframeResizer', VIP_Beer_Finder_URL . 'js/iframeResizer.js', array(), VIP_Beer_Finder_Version, true );
