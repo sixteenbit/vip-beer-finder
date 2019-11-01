@@ -3,7 +3,7 @@
  * Plugin Name: VIP Beer Finder
  * Plugin URI:  https://github.com/sixteenbit/vip-beer-finder
  * Description: Integrate your VIP beer finder with a WordPress shortcode.
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author: Sixteenbit
  * Author URI: https://sixteenbit.com
  * License:     GPLv2+
@@ -103,12 +103,13 @@ function vip_beer_finder( $atts ) {
 
 	if ( $specs['geolocate'] == true ) {
 		$param['geolocate'] = 'Y';
+		$allow_geo          = ' allow="geolocation;"';
 	}
 
 	wp_enqueue_script( 'vip-beer-finder-iframeResizer', VIP_Beer_Finder_URL . 'js/iframeResizer.js', array(), VIP_Beer_Finder_Version, true );
 	add_action( 'wp_print_footer_scripts', 'vip_beer_finder_iframeResizer_init' );
 
-	return '<iframe src="https://www.vtinfo.com/PF/product_finder.asp?' . build_query( $param ) . '" ' . $iframe_width . $iframe_height . ' frameborder="0" scrolling="no"></iframe>';
+	return '<iframe src="https://www.vtinfo.com/PF/product_finder.asp?' . build_query( $param ) . '" ' . $iframe_width . $iframe_height . ' frameborder="0" scrolling="no" ' . esc_html( $allow_geo ) . '></iframe>';
 }
 
 add_shortcode( 'beer-finder', 'vip_beer_finder' );
